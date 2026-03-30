@@ -45,6 +45,9 @@ function add() {
     </div>
 
     <v-card-text class="text-center pt-6 pb-4 px-2">
+      <div v-if="product.category" class="text-caption text-uppercase font-weight-bold mb-1" style="color: #81D8D0; letter-spacing: 1px;">
+        {{ product.category }}
+      </div>
       <h3 class="product-title text-subtitle-1 mb-2 text-truncate">
         {{ product.name || 'Sin Título' }}
       </h3>

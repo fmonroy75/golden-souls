@@ -1,9 +1,12 @@
 <script setup>
 import { ref, onMounted } from "vue"
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from "firebase/firestore"
-import { db } from "@/firebase/firebase"
+import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage"
+import { db, storage } from "@/firebase/firebase"
 
 const items = ref([])
+const categories = ref([])
+const imageFile = ref(null)
 const loading = ref(true)
 const dialog = ref(false)
 const dialogDelete = ref(false)
@@ -12,22 +15,27 @@ const saving = ref(false)
 const headers = [
   { title: "Muestra", key: "image", sortable: false },
   { title: "Nombre", key: "name" },
+  { title: "Categoría", key: "category" },
   { title: "Precio ($)", key: "price" },
   { title: "Descripción", key: "description", sortable: false },
   { title: "Acciones", key: "actions", sortable: false }
 ]
 
 const editedIndex = ref(-1)
-const editedItem = ref({ id: '', name: '', price: 0, description: '', image: '' })
-const defaultItem = { id: '', name: '', price: 0, description: '', image: '' }
+const editedItem = ref({ id: '', name: '', category: '', price: 0, description: '', image: '' })
+const defaultItem = { id: '', name: '', category: '', price: 0, description: '', image: '' }
 
 async function load() {
   loading.value = true
   try {
-    const snap = await getDocs(collection(db, "products"))
+    const [snap, catSnap] = await Promise.all([
+      getDocs(collection(db, "products")),
+      getDocs(collection(db, "categories"))
+    ])
     items.value = snap.docs.map(d => ({ id: d.id, ...d.data() }))
+    categories.value = catSnap.docs.map(d => d.data().name)
   } catch (e) {
-    console.error("Error loading products:", e)
+    console.error("Error loading products and categories:", e)
   } finally {
     loading.value = false
   }
@@ -64,6 +72,7 @@ function close() {
   dialog.value = false
   editedItem.value = Object.assign({}, defaultItem)
   editedIndex.value = -1
+  imageFile.value = null
 }
 
 function closeDelete() {
@@ -75,11 +84,20 @@ function closeDelete() {
 async function save() {
   saving.value = true
   try {
+    let imageUrl = editedItem.value.image
+
+    if (imageFile.value) {
+      const fileRef = storageRef(storage, `products/${Date.now()}_${imageFile.value.name}`)
+      await uploadBytes(fileRef, imageFile.value)
+      imageUrl = await getDownloadURL(fileRef)
+    }
+
     const productData = {
       name: editedItem.value.name,
+      category: editedItem.value.category || '',
       price: Number(editedItem.value.price),
       description: editedItem.value.description,
-      image: editedItem.value.image
+      image: imageUrl
     }
 
     if (editedIndex.value > -1) {
@@ -121,14 +139,17 @@ async function save() {
           <v-card-text class="pt-6">
             <v-container>
               <v-row>
-                <v-col cols="12">
+                <v-col cols="12" sm="6">
                   <v-text-field v-model="editedItem.name" label="Nombre de Joya" variant="outlined" color="#81D8D0" hide-details="auto"></v-text-field>
+                </v-col>
+                <v-col cols="12" sm="6">
+                  <v-select v-model="editedItem.category" :items="categories" label="Categoría" variant="outlined" color="#81D8D0" prepend-inner-icon="mdi-shape-outline" hide-details="auto"></v-select>
                 </v-col>
                 <v-col cols="12" sm="6">
                   <v-text-field v-model="editedItem.price" label="Precio" type="number" variant="outlined" color="#81D8D0" prepend-inner-icon="mdi-currency-usd" hide-details="auto"></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6">
-                  <v-text-field v-model="editedItem.image" label="URL de Imagen" variant="outlined" color="#81D8D0" hide-details="auto"></v-text-field>
+                  <v-file-input v-model="imageFile" label="Imagen del Producto" variant="outlined" color="#81D8D0" prepend-icon="" prepend-inner-icon="mdi-camera" accept="image/*" hide-details="auto"></v-file-input>
                 </v-col>
                 <v-col cols="12">
                   <v-textarea v-model="editedItem.description" label="Descripción" variant="outlined" color="#81D8D0" rows="3" hide-details="auto"></v-textarea>
