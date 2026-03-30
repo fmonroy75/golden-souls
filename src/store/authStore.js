@@ -21,15 +21,19 @@ export const useAuthStore = defineStore('auth', () => {
 
   const fetchUserRole = async (uid) => {
     try {
+      console.log(` Buscando usuario en Firestore con UID: ${uid}`)
       const docRef = doc(db, 'users', uid)
       const docSnap = await getDoc(docRef)
       if (docSnap.exists()) {
-        role.value = docSnap.data().role
+        const foundRole = docSnap.data().role
+        console.log(` ¡Documento encontrado! Rol en Firestore para el UID ${uid}: ${foundRole}`)
+        role.value = foundRole
       } else {
+        console.warn(` No se encontró documento en Firestore para el UID: ${uid}. Asignando 'client' por defecto.`)
         role.value = 'client'
       }
     } catch (err) {
-      console.error('Error fetching user role:', err)
+      console.error(' Error buscando el rol del usuario (¿Permisos denegados en Reglas de Firestore?):', err)
       role.value = 'client'
     }
   }

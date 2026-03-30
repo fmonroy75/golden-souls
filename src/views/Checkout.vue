@@ -131,7 +131,7 @@ const submitOrder = async () => {
           <v-list class="bg-transparent pa-0">
             <v-list-item v-for="item in cart.items" :key="item.id" class="px-0 py-3 border-bottom">
               <template v-slot:prepend>
-                <v-img :src="item.image || 'https://via.placeholder.com/80'" width="60" height="60" cover class="mr-4 bg-white border"></v-img>
+                <v-img :src="item.image || 'https://placehold.co/80x80'" width="60" height="60" cover class="mr-4 bg-white border"></v-img>
               </template>
               <v-list-item-title class="font-weight-medium text-body-2 text-wrap">{{ item.name }}</v-list-item-title>
               <v-list-item-subtitle class="mt-1">Cant: {{ item.qty }}</v-list-item-subtitle>

@@ -48,7 +48,7 @@ const goCheckout = () => {
       <v-list class="pa-4 flex-grow-1 overflow-y-auto" style="height: calc(100vh - 220px);">
         <v-list-item v-for="item in cart.items" :key="item.id" class="mb-4 pa-0 cart-item">
           <div class="d-flex w-100">
-            <v-img :src="item.image || 'https://via.placeholder.com/100'" width="90" height="90" cover class="bg-grey-lighten-4 mr-4"></v-img>
+            <v-img :src="item.image || 'https://placehold.co/100x100'" width="90" height="90" cover class="bg-grey-lighten-4 mr-4"></v-img>
             
             <div class="flex-grow-1 d-flex flex-column justify-center">
               <div class="d-flex justify-space-between align-start mb-1">

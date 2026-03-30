@@ -169,7 +169,7 @@ async function save() {
     >
       <template v-slot:item.image="{ item }">
         <v-avatar rounded size="48" class="my-2 bg-grey-lighten-3">
-          <v-img :src="item.image || 'https://via.placeholder.com/48'" cover></v-img>
+          <v-img :src="item.image || 'https://placehold.co/48x48'" cover></v-img>
         </v-avatar>
       </template>
 

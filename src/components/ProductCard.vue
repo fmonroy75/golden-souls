@@ -19,7 +19,7 @@ function add() {
   <v-card class="tiffany-card mx-auto" elevation="0" max-width="350">
     <div class="img-container">
       <v-img
-        :src="product.image || 'https://via.placeholder.com/400x400?text=Joya'"
+        :src="product.image || 'https://placehold.co/400x400?text=Golden+Souls'"
         height="320"
         cover
         class="product-img"

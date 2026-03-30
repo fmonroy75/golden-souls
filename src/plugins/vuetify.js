@@ -1,30 +1,24 @@
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
 
-export default createVuetify({
-
+export const vuetify = createVuetify({
+    components,
+    directives,
     theme: {
-        defaultTheme: 'goldenSouls',
-
+        defaultTheme: 'goldenTheme',
         themes: {
-
-            goldenSouls: {
-
+            goldenTheme: {
+                dark: false,
                 colors: {
-
-                    primary: "#7ED6D1",
-                    secondary: "#4F6D7A",
-                    background: "#F4FAFA",
-                    surface: "#FFFFFF",
-                    dark: "#1E2A2F",
-                    gold: "#C9A227"
-
+                    primary: '#6FA8A3',   // soft-turquesa
+                    secondary: '#DDEFEF', // niagra mist
+                    accent: '#6B7C8C',    // celeb city
+                    background: '#F5FAFA',
+                    gold: '#C6A769'
                 }
-
             }
-
         }
-
     }
-
 })

@@ -34,7 +34,7 @@ const adminLinks = [
           :prepend-icon="link.icon"
           :title="link.title"
           :to="link.to"
-          active-color="#81D8D0"
+          color="#81D8D0"
         ></v-list-item>
       </v-list>
     </v-navigation-drawer>
