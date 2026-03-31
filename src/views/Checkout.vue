@@ -59,14 +59,14 @@ const submitOrder = async () => {
       <v-icon color="success" size="80" class="mb-6">mdi-check-circle-outline</v-icon>
       <h1 class="playfair text-h3 mb-4">¡Gracias por tu compra!</h1>
       <p class="text-h6 text-medium-emphasis mb-8">Hemos recibido tu orden y la estamos procesando.</p>
-      <v-btn color="#81D8D0" class="text-white text-none px-8" size="x-large" to="/shop">
+      <v-btn color="primary" class="text-white text-none px-8" size="x-large" to="/shop">
         Volver a la Tienda
       </v-btn>
     </div>
 
     <div v-else-if="cart.items.length === 0" class="text-center py-16">
       <h2 class="playfair text-h4 mb-4">Tu bolso está vacío</h2>
-      <v-btn color="#81D8D0" variant="outlined" class="text-none" to="/shop">
+      <v-btn color="primary" variant="outlined" class="text-none" to="/shop">
         Ir de Compras
       </v-btn>
     </div>
@@ -82,21 +82,21 @@ const submitOrder = async () => {
             v-model="form.nombre"
             label="Nombre Completo"
             variant="outlined"
-            color="#81D8D0"
+            color="primary"
             required
           ></v-text-field>
           <v-text-field
             v-model="form.telefono"
             label="Teléfono"
             variant="outlined"
-            color="#81D8D0"
+            color="primary"
             required
           ></v-text-field>
           <v-text-field
             v-model="form.direccion"
             label="Dirección de Envío Completa"
             variant="outlined"
-            color="#81D8D0"
+            color="primary"
             required
             class="mb-4"
           ></v-text-field>
@@ -107,12 +107,12 @@ const submitOrder = async () => {
             :items="['Transferencia', 'Contra entrega (Sólo ciertas zonas)', 'Tarjeta de Crédito (Pronto)']"
             label="Selecciona un método"
             variant="outlined"
-            color="#81D8D0"
+            color="primary"
           ></v-select>
 
           <v-btn
             type="submit"
-            color="#81D8D0"
+            color="primary"
             size="x-large"
             block
             class="text-white text-none font-weight-bold mt-8"
@@ -125,13 +125,13 @@ const submitOrder = async () => {
 
       <!-- Resumen de Orden -->
       <v-col cols="12" md="5">
-        <v-card class="pa-6 bg-grey-lighten-4" elevation="0" border>
+        <v-card class="pa-6 bg-surface" elevation="0" border>
           <h3 class="font-weight-bold mb-6 text-uppercase text-body-1 tracking-wide">Resumen del Pedido</h3>
           
           <v-list class="bg-transparent pa-0">
             <v-list-item v-for="item in cart.items" :key="item.id" class="px-0 py-3 border-bottom">
               <template v-slot:prepend>
-                <v-img :src="item.image || 'https://placehold.co/80x80'" width="60" height="60" cover class="mr-4 bg-white border"></v-img>
+                <v-img :src="item.image || 'https://placehold.co/80x80'" width="60" height="60" cover class="mr-4 border"></v-img>
               </template>
               <v-list-item-title class="font-weight-medium text-body-2 text-wrap">{{ item.name }}</v-list-item-title>
               <v-list-item-subtitle class="mt-1">Cant: {{ item.qty }}</v-list-item-subtitle>
@@ -162,6 +162,6 @@ const submitOrder = async () => {
   border-top: 1px solid #bdbdbd;
 }
 .color-dark {
-  color: #333;
+  color: rgb(var(--v-theme-darkPurple));
 }
 </style>

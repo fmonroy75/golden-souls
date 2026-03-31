@@ -39,7 +39,7 @@ const goCheckout = () => {
     <div v-if="cart.items.length === 0" class="empty-cart d-flex flex-column align-center justify-center pa-8 text-center h-75">
       <v-icon size="64" color="grey-lighten-1" class="mb-4">mdi-shopping-outline</v-icon>
       <p class="text-body-1 text-medium-emphasis">Tu bolso está vacío.</p>
-      <v-btn color="#81D8D0" variant="outlined" class="mt-4 text-none" @click="isOpen = false">
+      <v-btn color="primary" variant="outlined" class="mt-4 text-none" @click="isOpen = false">
         Continuar Comprando
       </v-btn>
     </div>
@@ -48,7 +48,7 @@ const goCheckout = () => {
       <v-list class="pa-4 flex-grow-1 overflow-y-auto" style="height: calc(100vh - 220px);">
         <v-list-item v-for="item in cart.items" :key="item.id" class="mb-4 pa-0 cart-item">
           <div class="d-flex w-100">
-            <v-img :src="item.image || 'https://placehold.co/100x100'" width="90" height="90" cover class="bg-grey-lighten-4 mr-4"></v-img>
+            <v-img :src="item.image || 'https://placehold.co/100x100'" width="90" height="90" cover class="mr-4"></v-img>
             
             <div class="flex-grow-1 d-flex flex-column justify-center">
               <div class="d-flex justify-space-between align-start mb-1">
@@ -77,7 +77,7 @@ const goCheckout = () => {
         </v-list-item>
       </v-list>
 
-      <div class="drawer-footer pa-6 border-top bg-white" style="position: absolute; bottom: 0; width: 100%;">
+      <div class="drawer-footer pa-6 border-top bg-surface" style="position: absolute; bottom: 0; width: 100%;">
         <div class="d-flex justify-space-between align-center mb-4">
           <span class="text-subtitle-1 font-weight-medium text-uppercase">Subtotal</span>
           <span class="text-h6 font-weight-bold">${{ cart.totalPrice.toLocaleString() }}</span>
@@ -85,7 +85,7 @@ const goCheckout = () => {
         
         <v-btn
           block
-          color="#81D8D0"
+          color="primary"
           size="x-large"
           class="tiffany-checkout-btn text-none"
           elevation="0"
@@ -100,17 +100,17 @@ const goCheckout = () => {
 
 <style scoped>
 .cart-drawer {
-  background-color: #ffffff;
+  background-color: rgb(var(--v-theme-background));
 }
 .drawer-header {
-  border-bottom: 1px solid #eeeeee;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
 }
 .drawer-footer {
-  border-top: 1px solid #eeeeee;
+  border-top: 1px solid rgba(0,0,0,0.1);
 }
 .product-title {
   font-family: 'Montserrat', sans-serif;
-  color: #333;
+  color: rgb(var(--v-theme-darkPurple));
 }
 .qty-controls {
   border-radius: 4px;

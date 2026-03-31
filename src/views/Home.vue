@@ -17,7 +17,7 @@ import FeaturedProducts from '@/components/FeaturedProducts.vue'
       </p>
       <v-btn
         variant="outlined"
-        color="#81D8D0"
+        color="primary"
         size="x-large"
         class="tiffany-outline-btn rounded-0 px-8"
         to="/shop"
@@ -27,14 +27,14 @@ import FeaturedProducts from '@/components/FeaturedProducts.vue'
     </v-container>
 
     <!-- About Us Section (100% Handmade) -->
-    <div class="bg-white py-16">
+    <div class="bg-surface py-16">
       <v-container>
         <v-row align="center">
           <v-col cols="12" md="6" class="pr-md-10 mb-8 mb-md-0">
-            <span class="text-overline mb-2 d-block tiffany-color font-weight-bold" style="letter-spacing: 2px;">
+            <span class="text-overline mb-2 d-block text-primary font-weight-bold" style="letter-spacing: 2px;">
               QUIÉNES SOMOS
             </span>
-            <h2 class="playfair text-h4 text-md-h3 font-weight-regular mb-6" style="color: var(--color-celeb-city);">
+            <h2 class="playfair text-h4 text-md-h3 font-weight-regular mb-6" style="color: rgb(var(--v-theme-darkPurple));">
               Joyas 100% a Mano.<br>Hechas con el Alma.
             </h2>
             <p class="text-body-1 text-medium-emphasis mb-6" style="line-height: 1.8;">
@@ -112,33 +112,33 @@ import FeaturedProducts from '@/components/FeaturedProducts.vue'
 
 <style scoped>
 .home-wrapper {
-  background-color: var(--color-light);
+  background-color: rgb(var(--v-theme-background));
 }
 
 .tiffany-color {
-  color: var(--color-tiffany-dark);
+  color: rgb(var(--v-theme-primary));
 }
 
 .tiffany-outline-btn {
   border-width: 2px;
   letter-spacing: 2px;
   font-weight: 500;
-  border-color: var(--color-tiffany) !important;
-  color: var(--color-tiffany-dark) !important;
+  border-color: rgb(var(--v-theme-primary)) !important;
+  color: rgb(var(--v-theme-primary)) !important;
   transition: all 0.3s ease;
 }
 
 .tiffany-outline-btn:hover {
-  background-color: var(--color-tiffany) !important;
-  color: white !important;
+  background-color: rgb(var(--v-theme-primary)) !important;
+  color: rgb(var(--v-theme-background)) !important;
 }
 
 .bg-light-gray {
-  background-color: var(--color-notorius); /* Usando Notorius para fondos claros */
+  background-color: rgb(var(--v-theme-surface));
 }
 
 .shadow-elegant {
-  box-shadow: 0 10px 40px rgba(100, 111, 122, 0.15) !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
 }
 
 .category-img {

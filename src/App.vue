@@ -21,25 +21,8 @@ const isCartOpen = ref(false)
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
 
-:root {
-  /* Paleta Behr Personalizada */
-  --color-soft-turquesa: #78C0A8;
-  --color-niagara-mist: #C9D6D5;
-  --color-celeb-city: #646F7A;
-  --color-notorius: #E0E4E7;
-  --color-gold-fall: #D4AF37;
-
-  /* Aliasing para compatibilidad con clases de estilo Tiffany previas */
-  --color-tiffany: var(--color-soft-turquesa);
-  --color-tiffany-dark: var(--color-celeb-city);
-  --color-dark: var(--color-celeb-city);
-  --color-light: var(--color-notorius);
-}
-
 body {
   font-family: 'Montserrat', sans-serif !important;
-  color: var(--color-dark);
-  background-color: var(--color-light);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -53,17 +36,13 @@ h1, h2, h3, h4, h5, h6, .playfair {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: rgb(var(--v-theme-background));
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-tiffany);
+  background: rgb(var(--v-theme-primary));
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-tiffany-dark);
-}
-
-.tiffany-app {
-  background-color: #ffffff !important;
+  background: rgb(var(--v-theme-secondary));
 }
 </style>

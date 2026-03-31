@@ -12,11 +12,11 @@ const adminLinks = [
 </script>
 
 <template>
-  <v-layout class="bg-grey-lighten-4" style="min-height: calc(100vh - 64px);">
+  <v-layout class="bg-background" style="min-height: calc(100vh - 64px);">
     <v-navigation-drawer
       v-model="drawer"
       permanent
-      color="#333"
+      color="surface"
       theme="dark"
     >
       <v-list-item
@@ -34,7 +34,7 @@ const adminLinks = [
           :prepend-icon="link.icon"
           :title="link.title"
           :to="link.to"
-          color="#81D8D0"
+          color="primary"
         ></v-list-item>
       </v-list>
     </v-navigation-drawer>

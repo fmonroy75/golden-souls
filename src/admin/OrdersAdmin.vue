@@ -67,7 +67,7 @@ onMounted(() => {
 <template>
   <v-card class="elevation-2 rounded-lg">
     <v-card-title class="d-flex align-center py-4 px-6">
-      <v-icon color="#81D8D0" class="mr-3">mdi-clipboard-list-outline</v-icon>
+      <v-icon color="primary" class="mr-3">mdi-clipboard-list-outline</v-icon>
       <span class="text-h5 font-weight-bold">Órdenes Recientes</span>
       <v-spacer></v-spacer>
       <v-btn icon @click="loadOrders" :loading="loading" variant="text">

@@ -39,7 +39,7 @@ const handleLogin = async () => {
           label="Correo Electrónico"
           type="email"
           variant="outlined"
-          color="tiffany-blue"
+          color="primary"
           prepend-inner-icon="mdi-email-outline"
           class="mb-2"
         ></v-text-field>
@@ -49,7 +49,7 @@ const handleLogin = async () => {
           label="Contraseña"
           type="password"
           variant="outlined"
-          color="tiffany-blue"
+          color="primary"
           prepend-inner-icon="mdi-lock-outline"
           class="mb-4"
         ></v-text-field>
@@ -60,7 +60,7 @@ const handleLogin = async () => {
 
         <v-btn
           type="submit"
-          color="#81D8D0"
+          color="primary"
           block
           size="x-large"
           class="text-none font-weight-bold tiffany-btn mb-4"
@@ -83,11 +83,11 @@ const handleLogin = async () => {
 <style scoped>
 .login-container {
   min-height: calc(100vh - 64px); /* assuming navbar is 64px */
-  background-color: #fafafa;
+  background-color: rgb(var(--v-theme-background));
 }
 
 .tiffany-title {
-  color: #333;
+  color: rgb(var(--v-theme-gold));
   font-family: 'Playfair Display', serif; /* Or any elegant font */
   letter-spacing: 1px;
 }
@@ -98,7 +98,7 @@ const handleLogin = async () => {
 }
 
 .tiffany-link {
-  color: #81D8D0;
+  color: rgb(var(--v-theme-primary));
   transition: opacity 0.2s;
 }
 

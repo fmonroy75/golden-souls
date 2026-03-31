@@ -1,8 +1,7 @@
 <script setup>
 import { ref, onMounted } from "vue"
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from "firebase/firestore"
-import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage"
-import { db, storage } from "@/firebase/firebase"
+import { db } from "@/firebase/firebase"
 
 const items = ref([])
 const categories = ref([])
@@ -85,11 +84,24 @@ async function save() {
   saving.value = true
   try {
     let imageUrl = editedItem.value.image
+    let fileName = editedItem.value.fileName || ''
 
     if (imageFile.value) {
-      const fileRef = storageRef(storage, `products/${Date.now()}_${imageFile.value.name}`)
-      await uploadBytes(fileRef, imageFile.value)
-      imageUrl = await getDownloadURL(fileRef)
+      const formData = new FormData()
+      formData.append('image', imageFile.value)
+      
+      const response = await fetch(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API}`, {
+        method: 'POST',
+        body: formData
+      })
+      const result = await response.json()
+      
+      if (result.success) {
+        imageUrl = result.data.url
+        fileName = imageFile.value.name
+      } else {
+        throw new Error('Error al subir la imagen a ImgBB: ' + (result.error?.message || 'Error desconocido'))
+      }
     }
 
     const productData = {
@@ -97,7 +109,8 @@ async function save() {
       category: editedItem.value.category || '',
       price: Number(editedItem.value.price),
       description: editedItem.value.description,
-      image: imageUrl
+      image: imageUrl,
+      fileName: fileName
     }
 
     if (editedIndex.value > -1) {
@@ -120,19 +133,19 @@ async function save() {
 
 <template>
   <v-card class="elevation-2 rounded-lg">
-    <v-card-title class="d-flex align-center py-4 px-6 bg-white">
-      <v-icon color="#81D8D0" class="mr-3">mdi-diamond-stone</v-icon>
+    <v-card-title class="d-flex align-center py-4 px-6">
+      <v-icon color="primary" class="mr-3">mdi-diamond-stone</v-icon>
       <span class="text-h5 font-weight-bold">Productos</span>
       <v-spacer></v-spacer>
 
       <v-dialog v-model="dialog" max-width="500px">
         <template v-slot:activator="{ props }">
-          <v-btn color="#81D8D0" class="text-white font-weight-bold" v-bind="props" prepend-icon="mdi-plus">
+          <v-btn color="primary" class="text-white font-weight-bold" v-bind="props" prepend-icon="mdi-plus">
             Nuevo Producto
           </v-btn>
         </template>
         <v-card class="rounded-lg">
-          <v-card-title class="bg-grey-lighten-4 py-4 px-6">
+          <v-card-title class="py-4 px-6">
             <span class="text-h5 font-weight-bold">{{ editedIndex === -1 ? 'Crear Producto' : 'Editar Producto' }}</span>
           </v-card-title>
 
@@ -140,19 +153,19 @@ async function save() {
             <v-container>
               <v-row>
                 <v-col cols="12" sm="6">
-                  <v-text-field v-model="editedItem.name" label="Nombre de Joya" variant="outlined" color="#81D8D0" hide-details="auto"></v-text-field>
+                  <v-text-field v-model="editedItem.name" label="Nombre de Joya" variant="outlined" color="primary" hide-details="auto"></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6">
-                  <v-select v-model="editedItem.category" :items="categories" label="Categoría" variant="outlined" color="#81D8D0" prepend-inner-icon="mdi-shape-outline" hide-details="auto"></v-select>
+                  <v-select v-model="editedItem.category" :items="categories" label="Categoría" variant="outlined" color="primary" prepend-inner-icon="mdi-shape-outline" hide-details="auto"></v-select>
                 </v-col>
                 <v-col cols="12" sm="6">
-                  <v-text-field v-model="editedItem.price" label="Precio" type="number" variant="outlined" color="#81D8D0" prepend-inner-icon="mdi-currency-usd" hide-details="auto"></v-text-field>
+                  <v-text-field v-model="editedItem.price" label="Precio" type="number" variant="outlined" color="primary" prepend-inner-icon="mdi-currency-usd" hide-details="auto"></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6">
-                  <v-file-input v-model="imageFile" label="Imagen del Producto" variant="outlined" color="#81D8D0" prepend-icon="" prepend-inner-icon="mdi-camera" accept="image/*" hide-details="auto"></v-file-input>
+                  <v-file-input v-model="imageFile" label="Imagen del Producto" variant="outlined" color="primary" prepend-icon="" prepend-inner-icon="mdi-camera" accept="image/*" hide-details="auto"></v-file-input>
                 </v-col>
                 <v-col cols="12">
-                  <v-textarea v-model="editedItem.description" label="Descripción" variant="outlined" color="#81D8D0" rows="3" hide-details="auto"></v-textarea>
+                  <v-textarea v-model="editedItem.description" label="Descripción" variant="outlined" color="primary" rows="3" hide-details="auto"></v-textarea>
                 </v-col>
               </v-row>
             </v-container>
@@ -160,8 +173,8 @@ async function save() {
 
           <v-card-actions class="px-6 pb-6 pt-0">
             <v-spacer></v-spacer>
-            <v-btn color="grey-darken-1" variant="text" @click="close" class="text-none">Cancelar</v-btn>
-            <v-btn color="#81D8D0" class="text-white text-none" @click="save" :loading="saving" elevation="0">Guardar</v-btn>
+            <v-btn color="grey-darken-1" variant="flat" @click="close" class="text-none mr-2">Cancelar</v-btn>
+            <v-btn color="primary" variant="flat" class="text-white text-none" @click="save" :loading="saving" elevation="0">Guardar</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -172,8 +185,8 @@ async function save() {
           <v-card-title class="text-h5 font-weight-bold pb-4">¿Eliminar este producto?</v-card-title>
           <v-card-text>Esta acción no se puede deshacer y el producto "{{ editedItem.name }}" desaparecerá de la tienda.</v-card-text>
           <v-card-actions class="justify-center mt-4">
-            <v-btn color="grey-darken-1" variant="text" @click="closeDelete" class="text-none">Cancelar</v-btn>
-            <v-btn color="error" @click="deleteItemConfirm" :loading="saving" class="text-none" elevation="0">Eliminar</v-btn>
+            <v-btn color="grey-darken-1" variant="flat" @click="closeDelete" class="text-none mr-2">Cancelar</v-btn>
+            <v-btn color="error" variant="flat" @click="deleteItemConfirm" :loading="saving" class="text-none" elevation="0">Eliminar</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -189,7 +202,7 @@ async function save() {
       class="pb-4"
     >
       <template v-slot:item.image="{ item }">
-        <v-avatar rounded size="48" class="my-2 bg-grey-lighten-3">
+        <v-avatar rounded size="48" class="my-2">
           <v-img :src="item.image || 'https://placehold.co/48x48'" cover></v-img>
         </v-avatar>
       </template>

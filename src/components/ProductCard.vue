@@ -25,8 +25,8 @@ function add() {
         class="product-img"
       >
         <template v-slot:placeholder>
-          <div class="d-flex align-center justify-center fill-height bg-grey-lighten-4">
-            <v-progress-circular color="#81D8D0" indeterminate></v-progress-circular>
+          <div class="d-flex align-center justify-center fill-height bg-surface">
+            <v-progress-circular color="primary" indeterminate></v-progress-circular>
           </div>
         </template>
       </v-img>
@@ -45,7 +45,7 @@ function add() {
     </div>
 
     <v-card-text class="text-center pt-6 pb-4 px-2">
-      <div v-if="product.category" class="text-caption text-uppercase font-weight-bold mb-1" style="color: #81D8D0; letter-spacing: 1px;">
+      <div v-if="product.category" class="text-caption text-uppercase font-weight-bold mb-1 text-primary" style="letter-spacing: 1px;">
         {{ product.category }}
       </div>
       <h3 class="product-title text-subtitle-1 mb-2 text-truncate">
@@ -68,7 +68,7 @@ function add() {
 .img-container {
   position: relative;
   overflow: hidden;
-  background-color: #f8f8f8;
+  background-color: rgb(var(--v-theme-surface));
 }
 
 .product-img {
@@ -82,7 +82,7 @@ function add() {
 .card-overlay {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(0, 0, 0, 0.4);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -92,23 +92,23 @@ function add() {
 }
 
 .tiffany-add-btn {
-  color: #333 !important;
+  color: white !important;
   font-family: 'Montserrat', sans-serif;
   letter-spacing: 1px;
   font-weight: 500;
-  border: 1px solid #333;
+  border: 1px solid white;
   transition: all 0.3s ease;
 }
 
 .tiffany-add-btn:hover {
-  background-color: #81D8D0 !important;
-  color: white !important;
-  border-color: #81D8D0;
+  background-color: rgb(var(--v-theme-primary)) !important;
+  color: rgb(var(--v-theme-background)) !important;
+  border-color: rgb(var(--v-theme-primary));
 }
 
 .product-title {
   font-family: 'Montserrat', sans-serif;
-  color: #555;
+  color: rgb(var(--v-theme-gold));
   letter-spacing: 1px;
   font-weight: 400;
 }
@@ -116,6 +116,6 @@ function add() {
 .product-price {
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
-  color: #333;
+  color: white;
 }
 </style>

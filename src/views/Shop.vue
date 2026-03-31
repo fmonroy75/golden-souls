@@ -1,5 +1,5 @@
 <template>
-  <div class="shop-page bg-grey-lighten-4 min-vh-100 pb-12">
+  <div class="shop-page bg-background min-vh-100 pb-12">
     <!-- Premium Hero Section -->
     <v-img
       src="https://images.unsplash.com/photo-1599643478524-fb66f7f6a394?q=80&w=2000&auto=format&fit=crop"
@@ -47,12 +47,12 @@
 
       <!-- Products Grid -->
       <v-row v-if="loading" justify="center" class="py-12">
-        <v-progress-circular indeterminate color="#81D8D0" size="64"></v-progress-circular>
+        <v-progress-circular indeterminate color="primary" size="64"></v-progress-circular>
       </v-row>
       
       <v-row v-else-if="filteredProducts.length === 0" justify="center" class="py-12 text-center text-medium-emphasis">
         <v-col cols="12">
-          <v-icon size="64" color="grey-lighten-1" class="mb-4">mdi-diamond-stone</v-icon>
+          <v-icon size="64" color="secondary" class="mb-4">mdi-diamond-stone</v-icon>
           <h3 class="text-h5 font-weight-medium">No hay productos en esta categoría</h3>
           <p class="mt-2">Pronto añadiremos nuevas piezas exclusivas.</p>
         </v-col>
@@ -141,21 +141,21 @@ const filteredProducts = computed(() => {
 }
 
 .tiffany-chip {
-  border-color: #e0e0e0 !important;
-  color: #555 !important;
+  border-color: rgba(0,0,0,0.12) !important;
+  color: rgb(var(--v-theme-darkPurple)) !important;
   font-weight: 500;
   transition: all 0.3s ease;
-  background-color: white !important;
+  background-color: transparent !important;
 }
 
 .tiffany-chip:hover {
-  border-color: #81D8D0 !important;
-  color: #81D8D0 !important;
+  border-color: rgb(var(--v-theme-primary)) !important;
+  color: rgb(var(--v-theme-primary)) !important;
 }
 
 .tiffany-chip-active {
-  background-color: #81D8D0 !important;
-  border-color: #81D8D0 !important;
+  background-color: rgb(var(--v-theme-primary)) !important;
+  border-color: rgb(var(--v-theme-primary)) !important;
   color: white !important;
   font-weight: 600;
 }
@@ -165,7 +165,7 @@ const filteredProducts = computed(() => {
   height: 6px;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: #e0e0e0;
+  background-color: rgb(var(--v-theme-surface));
   border-radius: 4px;
 }
 </style>

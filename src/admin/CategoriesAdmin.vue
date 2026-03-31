@@ -96,19 +96,19 @@ async function save() {
 
 <template>
   <v-card class="elevation-2 rounded-lg">
-    <v-card-title class="d-flex align-center py-4 px-6 bg-white">
-      <v-icon color="#81D8D0" class="mr-3">mdi-shape-outline</v-icon>
+    <v-card-title class="d-flex align-center py-4 px-6">
+      <v-icon color="primary" class="mr-3">mdi-shape-outline</v-icon>
       <span class="text-h5 font-weight-bold">Categorías</span>
       <v-spacer></v-spacer>
 
       <v-dialog v-model="dialog" max-width="500px">
         <template v-slot:activator="{ props }">
-          <v-btn color="#81D8D0" class="text-white font-weight-bold" v-bind="props" prepend-icon="mdi-plus">
+          <v-btn color="primary" class="text-white font-weight-bold" v-bind="props" prepend-icon="mdi-plus">
             Nueva Categoría
           </v-btn>
         </template>
         <v-card class="rounded-lg">
-          <v-card-title class="bg-grey-lighten-4 py-4 px-6">
+          <v-card-title class="py-4 px-6">
             <span class="text-h5 font-weight-bold">{{ editedIndex === -1 ? 'Crear Categoría' : 'Editar Categoría' }}</span>
           </v-card-title>
 
@@ -116,10 +116,10 @@ async function save() {
             <v-container>
               <v-row>
                 <v-col cols="12">
-                  <v-text-field v-model="editedItem.name" label="Nombre de la Categoría" variant="outlined" color="#81D8D0" hide-details="auto"></v-text-field>
+                  <v-text-field v-model="editedItem.name" label="Nombre de la Categoría" variant="outlined" color="primary" hide-details="auto"></v-text-field>
                 </v-col>
                 <v-col cols="12">
-                  <v-textarea v-model="editedItem.description" label="Descripción" variant="outlined" color="#81D8D0" rows="3" hide-details="auto"></v-textarea>
+                  <v-textarea v-model="editedItem.description" label="Descripción" variant="outlined" color="primary" rows="3" hide-details="auto"></v-textarea>
                 </v-col>
               </v-row>
             </v-container>
@@ -127,8 +127,8 @@ async function save() {
 
           <v-card-actions class="px-6 pb-6 pt-0">
             <v-spacer></v-spacer>
-            <v-btn color="grey-darken-1" variant="text" @click="close" class="text-none">Cancelar</v-btn>
-            <v-btn color="#81D8D0" class="text-white text-none" @click="save" :loading="saving" elevation="0">Guardar</v-btn>
+            <v-btn color="grey-darken-1" variant="flat" @click="close" class="text-none mr-2">Cancelar</v-btn>
+            <v-btn color="primary" variant="flat" class="text-white text-none" @click="save" :loading="saving" elevation="0">Guardar</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -139,8 +139,8 @@ async function save() {
           <v-card-title class="text-h5 font-weight-bold pb-4">¿Eliminar esta categoría?</v-card-title>
           <v-card-text>Esta acción no se puede deshacer.</v-card-text>
           <v-card-actions class="justify-center mt-4">
-            <v-btn color="grey-darken-1" variant="text" @click="closeDelete" class="text-none">Cancelar</v-btn>
-            <v-btn color="error" @click="deleteItemConfirm" :loading="saving" class="text-none" elevation="0">Eliminar</v-btn>
+            <v-btn color="grey-darken-1" variant="flat" @click="closeDelete" class="text-none mr-2">Cancelar</v-btn>
+            <v-btn color="error" variant="flat" @click="deleteItemConfirm" :loading="saving" class="text-none" elevation="0">Eliminar</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>

@@ -12,11 +12,13 @@ export const vuetify = createVuetify({
             goldenTheme: {
                 dark: false,
                 colors: {
-                    primary: '#6FA8A3',   // soft-turquesa
-                    secondary: '#DDEFEF', // niagra mist
-                    accent: '#6B7C8C',    // celeb city
-                    background: '#F5FAFA',
-                    gold: '#C6A769'
+                    primary: '#75CED2',
+                    secondary: '#C3E8F0',
+                    accent: '#9D87AE',
+                    background: '#FAF9F6',
+                    surface: '#FFFFFF',
+                    darkPurple: '#7B658B',
+                    gold: '#A69675'
                 }
             }
         }
