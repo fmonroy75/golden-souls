@@ -30,7 +30,7 @@ import FeaturedProducts from '@/components/FeaturedProducts.vue'
     <div class="bg-surface py-16">
       <v-container>
         <v-row align="center">
-          <v-col cols="12" md="6" class="pr-md-10 mb-8 mb-md-0">
+          <v-col cols="12" md="6" class="pr-md-10 mb-8 mb-md-0 fade-in-up" style="animation-delay: 0.2s;">
             <span class="text-overline mb-2 d-block text-primary font-weight-bold" style="letter-spacing: 2px;">
               QUIÉNES SOMOS
             </span>
@@ -48,7 +48,7 @@ import FeaturedProducts from '@/components/FeaturedProducts.vue'
               Artesanía 100% Genuina
             </v-chip>
           </v-col>
-          <v-col cols="12" md="6">
+          <v-col cols="12" md="6" class="fade-in-up" style="animation-delay: 0.4s;">
             <v-img
               src="https://images.unsplash.com/photo-1596773335552-32b71abefa03?q=80&w=1470&auto=format&fit=crop"
               height="500"
@@ -64,7 +64,7 @@ import FeaturedProducts from '@/components/FeaturedProducts.vue'
     <div class="bg-light-gray py-16">
       <v-container>
         <v-row>
-          <v-col cols="12" md="6" class="pa-0">
+          <v-col cols="12" md="6" class="pa-0 fade-in-up" style="animation-delay: 0.2s;">
             <v-img
               src="https://images.unsplash.com/photo-1599643478514-4a48434731a5?q=80&w=1470&auto=format&fit=crop"
               height="500"
@@ -79,7 +79,7 @@ import FeaturedProducts from '@/components/FeaturedProducts.vue'
               </div>
             </v-img>
           </v-col>
-          <v-col cols="12" md="6" class="pa-0">
+          <v-col cols="12" md="6" class="pa-0 fade-in-up" style="animation-delay: 0.4s;">
             <v-img
               src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=1374&auto=format&fit=crop"
               height="500"

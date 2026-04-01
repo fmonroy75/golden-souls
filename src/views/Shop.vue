@@ -5,10 +5,10 @@
       src="https://images.unsplash.com/photo-1599643478524-fb66f7f6a394?q=80&w=2000&auto=format&fit=crop"
       height="400"
       cover
-      class="align-center justify-center text-center position-relative hero-img"
+      class="align-center justify-center text-center position-relative hero-img animate-pan"
     >
       <div class="overlay"></div>
-      <v-container class="position-relative z-index-1">
+      <v-container class="position-relative z-index-1 fade-in-up" style="animation-delay: 0.2s;">
         <h1 class="tiffany-title text-h2 font-weight-bold mb-4 text-white">Colección Exclusiva</h1>
         <p class="text-h6 font-weight-regular text-white opacity-90 max-w-600 mx-auto">
           Descubre la elegancia intemporal en cada una de nuestras piezas diseñadas para almas doradas.
@@ -60,12 +60,14 @@
 
       <v-row v-else>
         <v-col
-          v-for="p in filteredProducts"
+          v-for="(p, index) in filteredProducts"
           :key="p.id"
           cols="12"
           sm="6"
           md="4"
           lg="3"
+          class="fade-in-up"
+          :style="{ animationDelay: (index * 0.1) + 's' }"
         >
           <ProductCard :product="p"/>
         </v-col>

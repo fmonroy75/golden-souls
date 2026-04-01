@@ -4,16 +4,16 @@
 <template>
   <div class="hero-section">
     <v-img
-      src="https://images.unsplash.com/photo-1596522354195-e83ae3a4dffc?q=80&w=2070&auto=format&fit=crop"
+      src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=2070&auto=format&fit=crop"
       height="80vh"
       cover
-      class="hero-img"
+      class="hero-img animate-pan"
     >
       <div class="hero-overlay d-flex align-center">
         <v-container>
           <v-row>
             <v-col cols="12" md="8" lg="6" class="hero-content pl-md-10">
-              <span class="text-overline mb-4 d-block tiffany-text" style="letter-spacing: 4px; font-size: 1rem !important;">
+              <span class="text-overline mb-4 d-block" style="color: rgb(var(--v-theme-primary)); letter-spacing: 4px; font-size: 1rem !important;">
                 NUEVA COLECCIÓN
               </span>
               <h1 class="playfair text-h2 text-md-h1 font-weight-regular text-white mb-6" style="line-height: 1.1;">
@@ -58,16 +58,18 @@
 }
 
 .tiffany-solid-btn {
-  color: var(--color-dark) !important;
+  color: rgb(var(--v-theme-darkPurple)) !important;
   font-family: 'Montserrat', sans-serif;
   letter-spacing: 2px;
   font-weight: 600;
-  transition: background-color 0.3s ease, border 0.3s ease;
+  transition: all 0.4s ease;
 }
 
 .tiffany-solid-btn:hover {
-  background-color: var(--color-tiffany) !important;
+  background-color: rgb(var(--v-theme-primary)) !important;
   color: white !important;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2) !important;
 }
 
 .hero-content {
