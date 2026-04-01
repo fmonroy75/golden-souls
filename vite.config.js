@@ -12,7 +12,7 @@ export default defineConfig({
     vueJsx(),
     vueDevTools(),
   ],
-  base: '/',  //'/golden-souls/',
+  base: '/golden-souls/',  //'/golden-souls/',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
