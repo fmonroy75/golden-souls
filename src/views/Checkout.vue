@@ -4,7 +4,8 @@ import { useRouter } from 'vue-router'
 import { useCartStore } from '@/store/cartStore'
 import { useAuthStore } from '@/store/authStore'
 import { db } from '@/firebase/firebase'
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
+import { collection, addDoc, serverTimestamp, getDoc, doc } from 'firebase/firestore'
+import { onMounted } from 'vue'
 
 const cart = useCartStore()
 const auth = useAuthStore()
@@ -12,6 +13,7 @@ const router = useRouter()
 
 const form = ref({
   nombre: '',
+  email: '',
   telefono: '',
   direccion: '',
   metodoPago: 'Transferencia'
@@ -19,6 +21,26 @@ const form = ref({
 
 const loading = ref(false)
 const orderSuccess = ref(false)
+const orderNumberText = ref('')
+
+onMounted(async () => {
+  if (auth.user) {
+    form.value.email = auth.user.email || ''
+    try {
+      const docRef = doc(db, 'users', auth.user.uid)
+      const docSnap = await getDoc(docRef)
+      if (docSnap.exists()) {
+        const data = docSnap.data()
+        if (data.nombre) form.value.nombre = data.nombre
+        if (data.telefono) form.value.telefono = data.telefono
+        if (data.direccion && data.ciudad) form.value.direccion = `${data.direccion}, ${data.ciudad}`
+        else if (data.direccion) form.value.direccion = data.direccion
+      }
+    } catch (e) {
+      console.error("Error fetching user details:", e)
+    }
+  }
+})
 
 const submitOrder = async () => {
   if (cart.items.length === 0) return
@@ -29,11 +51,21 @@ const submitOrder = async () => {
 
   loading.value = true
   try {
+    const generatedOrderNumber = `GS-${Math.floor(100000 + Math.random() * 900000)}`
+    orderNumberText.value = generatedOrderNumber
+
     const orderData = {
-      userId: auth.user.uid,
-      userEmail: auth.user.email,
+      orderNumber: generatedOrderNumber,
+      userId: auth.user ? auth.user.uid : 'guest',
+      userEmail: form.value.email,
       customerDetails: { ...form.value },
-      items: cart.items.map(i => ({ id: i.id, name: i.name, price: i.price, qty: i.qty })),
+      items: cart.items.map(i => ({ 
+        id: i.id, 
+        name: i.name, 
+        price: i.price, 
+        qty: i.qty, 
+        image: i.image || '' 
+      })),
       total: cart.totalPrice,
       status: 'pending',
       createdAt: serverTimestamp()
@@ -58,7 +90,10 @@ const submitOrder = async () => {
     <div v-if="orderSuccess" class="text-center py-16">
       <v-icon color="success" size="80" class="mb-6">mdi-check-circle-outline</v-icon>
       <h1 class="playfair text-h3 mb-4">¡Gracias por tu compra!</h1>
-      <p class="text-h6 text-medium-emphasis mb-8">Hemos recibido tu orden y la estamos procesando.</p>
+      <p class="text-h6 text-medium-emphasis mb-2">Hemos recibido tu orden y la estamos procesando.</p>
+      <p class="text-h5 font-weight-bold mb-8" style="color: rgb(var(--v-theme-darkPurple));">
+        Orden #{{ orderNumberText }}
+      </p>
       <v-btn color="primary" class="text-white text-none px-8" size="x-large" to="/shop">
         Volver a la Tienda
       </v-btn>
@@ -81,6 +116,14 @@ const submitOrder = async () => {
           <v-text-field
             v-model="form.nombre"
             label="Nombre Completo"
+            variant="outlined"
+            color="primary"
+            required
+          ></v-text-field>
+          <v-text-field
+            v-model="form.email"
+            label="Correo Electrónico"
+            type="email"
             variant="outlined"
             color="primary"
             required

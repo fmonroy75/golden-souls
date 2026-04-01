@@ -9,11 +9,15 @@ const authStore = useAuthStore()
 const email = ref('')
 const password = ref('')
 const confirmPassword = ref('')
+const nombre = ref('')
+const telefono = ref('')
+const direccion = ref('')
+const ciudad = ref('')
 const formError = ref('')
 
 const handleRegister = async () => {
   formError.value = ''
-  if (!email.value || !password.value || !confirmPassword.value) {
+  if (!nombre.value || !email.value || !password.value || !confirmPassword.value || !telefono.value || !direccion.value || !ciudad.value) {
     formError.value = 'Por favor completa todos los campos.'
     return
   }
@@ -27,7 +31,13 @@ const handleRegister = async () => {
   }
 
   try {
-    await authStore.registerUser(email.value, password.value)
+    const userData = {
+      nombre: nombre.value,
+      telefono: telefono.value,
+      direccion: direccion.value,
+      ciudad: ciudad.value
+    }
+    await authStore.registerUser(email.value, password.value, userData)
     router.push('/')
   } catch (err) {
     formError.value = authStore.error || 'Ocurrió un error al registrarse.'
@@ -44,6 +54,15 @@ const handleRegister = async () => {
       </div>
 
       <v-form @submit.prevent="handleRegister">
+        <v-text-field
+          v-model="nombre"
+          label="Nombre Completo"
+          variant="outlined"
+          color="primary"
+          prepend-inner-icon="mdi-account-outline"
+          class="mb-2"
+        ></v-text-field>
+
         <v-text-field
           v-model="email"
           label="Correo Electrónico"
@@ -71,6 +90,33 @@ const handleRegister = async () => {
           variant="outlined"
           color="primary"
           prepend-inner-icon="mdi-lock-check-outline"
+          class="mb-2"
+        ></v-text-field>
+
+        <v-text-field
+          v-model="telefono"
+          label="Teléfono"
+          variant="outlined"
+          color="primary"
+          prepend-inner-icon="mdi-phone-outline"
+          class="mb-2"
+        ></v-text-field>
+
+        <v-text-field
+          v-model="direccion"
+          label="Dirección"
+          variant="outlined"
+          color="primary"
+          prepend-inner-icon="mdi-map-marker-outline"
+          class="mb-2"
+        ></v-text-field>
+
+        <v-text-field
+          v-model="ciudad"
+          label="Ciudad"
+          variant="outlined"
+          color="primary"
+          prepend-inner-icon="mdi-city-variant-outline"
           class="mb-4"
         ></v-text-field>
 

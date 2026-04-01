@@ -45,6 +45,13 @@ onMounted(load)
 function editItem(item) {
   editedIndex.value = items.value.indexOf(item)
   editedItem.value = Object.assign({}, item)
+  
+  // Solución: Asegurarse de que si el producto tiene una categoría, ésta
+  // exista en el array `categories`, de lo contrario v-select la ocultará.
+  if (editedItem.value.category && !categories.value.includes(editedItem.value.category)) {
+    categories.value.push(editedItem.value.category)
+  }
+  
   dialog.value = true
 }
 

@@ -38,7 +38,7 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  const registerUser = async (email, password) => {
+  const registerUser = async (email, password, userData = {}) => {
     loading.value = true
     error.value = null
     try {
@@ -47,7 +47,8 @@ export const useAuthStore = defineStore('auth', () => {
       await setDoc(doc(db, 'users', userCredential.user.uid), {
         email: email,
         role: 'client',
-        createdAt: new Date().toISOString()
+        createdAt: new Date().toISOString(),
+        ...userData
       })
       user.value = userCredential.user
       role.value = 'client'
