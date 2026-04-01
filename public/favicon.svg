@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+
+<style>
+@keyframes sparkle {
+0% { transform: scale(1); opacity:1 }
+50% { transform: scale(1.15); opacity:.8 }
+100% { transform: scale(1); opacity:1 }
+}
+
+.diamond{
+animation:sparkle 2.5s infinite ease-in-out;
+}
+</style>
+
+<circle cx="50" cy="50" r="46" fill="#75CED2"></circle>
+
+<text x="50%" y="58%" text-anchor="middle" font-size="40" font-family="Playfair Display" fill="white">
+GS
+</text>
+
+<polygon class="diamond" points="50,8 58,20 50,32 42,20" fill="#FFD700"></polygon>
+</svg>
