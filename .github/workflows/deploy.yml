@@ -42,6 +42,9 @@ jobs:
           VITE_IMGBB_API: ${{ secrets.VITE_IMGBB_API }}
         run: npm run build
 
+      - name: Desactivar Jekyll
+        run: touch dist/.nojekyll        
+
       - name: Subir artefacto para Pages
         uses: actions/upload-pages-artifact@v3
         with:
